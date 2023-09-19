@@ -1,13 +1,13 @@
-package pweb.financialmanager;
+package financialmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FinancialManagerApplication {
+public class FinacialManager {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FinancialManagerApplication.class, args);
+		SpringApplication.run(FinacialManager.class, args);
 	}
 
 }

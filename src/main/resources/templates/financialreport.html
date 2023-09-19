@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+    >
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador Financeiro</title>
+    <link rel="stylesheet" type="text/css" href="financialmanager.css">
+</head>
+
+<body>
+    <header>
+        <h1>Gerenciador Financeiro</h1>
+        <nav>
+            <a href="/" class="nav-button ">Home</a>
+            <a href="/budget" class="nav-button ">Novo Orçamento</a>
+            <a href="/transaction" class="nav-button ">Histórico de Transações</a>
+            <a href="/financial" class="nav-button active">Relatórios Financeiros</a>
+            <a href="/" class="nav-button ">Importar Dados</a>
+            <a href="/" class="nav-button ">Exportar Dados</a>
+            <form class="nav-button" id="nav-form" method="post" action="#" th:action="@{/logout}">
+                <button class="nav-button" id="nav" sec:authorize="!isAuthenticated()" type="submit">Logout</button>
+            </form>
+        </nav>
+        <input id="menu-hamburguer" type="checkbox" />
+
+        <label for="menu-hamburguer">
+            <div class="menu">
+                <span class="hamburguer"></span>
+            </div>
+        </label>
+    </header>
+    <div id="menu-lateral">
+        <a href="/">Home</a>
+        <a href="/budget">Novo Orçamento</a>
+        <a href="/transaction">Histórico de Transações</a>
+        <a href="/financial">Relatórios Financeiros</a>
+        <a href="/">Importar Dados</a>
+        <a href="/">Exportar Dados</a>
+        <form method="post" action="#" th:action="@{/logout}">
+            <button id="aside" sec:authorize="!isAuthenticated()" type="submit">Logout</button>
+        </form>
+    </div>
+    <div class="container">
+
+        
+      
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuHamburguer = document.getElementById('menu-hamburguer');
+            const menuLateral = document.getElementById('menu-lateral');
+            const newTransactionButton = document.getElementById('new-transaction');
+            const formContainer = document.getElementsByClassName('form-container')[0]; // Acessar o primeiro elemento
+
+            menuHamburguer.addEventListener('click', function () {
+                if (menuHamburguer.checked) {
+                    menuLateral.style.right = '0';
+                } else {
+                    menuLateral.style.right = '-290px';
+                }
+            });
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>

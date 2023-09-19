@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador Financeiro</title>
+    <link rel="stylesheet" type="text/css" href="financialmanager.css">
+</head>
+
+<body>
+    <header>
+        <h1>Gerenciador Financeiro</h1>
+        <nav>
+            <a href="/" class="nav-button active">Home</a>
+            <a href="/budget" class="nav-button ">Novo Orçamento</a>
+            <a href="/transaction" class="nav-button ">Histórico de Transações</a>
+            <a href="/financial" class="nav-button
+            ">Relatórios Financeiros</a>
+            <a href="/" class="nav-button ">Importar Dados</a>
+            <a href="/" class="nav-button ">Exportar Dados</a>
+            <form class="nav-button" id="nav-form" method="post" action="#" th:action="@{/logout}">
+                <button class="nav-button" id="nav" sec:authorize="!isAuthenticated()" type="submit">Logout</button>
+            </form>
+        </nav>
+        <input id="menu-hamburguer" type="checkbox" />
+
+        <label for="menu-hamburguer">
+            <div class="menu">
+                <span class="hamburguer"></span>
+            </div>
+        </label>
+    </header>
+    <div id="menu-lateral">
+        <a href="/">Home</a>
+        <a href="/budget">Novo Orçamento</a>
+        <a href="/transaction">Histórico de Transações</a>
+        <a href="/financial">Relatórios Financeiros</a>
+        <a href="/">Importar Dados</a>
+        <a href="/">Exportar Dados</a>
+        <form method="post" action="#" th:action="@{/logout}">
+            <button id="aside" sec:authorize="!isAuthenticated()" type="submit">Logout</button>
+        </form>
+    </div>
+    <div class="container">
+
+        <div class="form-container">
+            <form method="post" action="#" id="form" th:action="@{/transaction}" th:object="${transaction}">
+                <h2>Nova Transação</h2>
+                <input name="tipo" id="tipo" type="text" placeholder="Tipo">
+
+                <input id="valor" name="valor" type="number" placeholder="Valor">
+                <input name="descricao" id="descricao" type="text" placeholder="Descrição">
+                <select id="categoria" name="categoria">
+                    <option value="deposito">Depósito</option>
+                    <option value="saque">Saque</option>
+                    <option value="despesas">Despesas</option>
+                    <option value="receitas">Receitas</option>
+                </select>
+                <button class="buttons">Adicionar Transação</button>
+            </form>
+        </div>
+        <div class="button-container">
+            <button class="buttons" id="new-transaction">Nova Transação</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuHamburguer = document.getElementById('menu-hamburguer');
+            const menuLateral = document.getElementById('menu-lateral');
+            const newTransactionButton = document.getElementById('new-transaction');
+            const formContainer = document.getElementsByClassName('form-container')[0];
+            const username = sessionStorage.getItem('username');
+            const userId =sessionStorage.getItem('user_id');
+
+
+            menuHamburguer.addEventListener('click', function () {
+                if (menuHamburguer.checked) {
+                    menuLateral.style.right = '0';
+                } else {
+                    menuLateral.style.right = '-290px';
+                }
+            });
+
+            newTransactionButton.addEventListener('click', function () {
+                if (formContainer.style.display === 'none' || formContainer.style.display === '') {
+                    formContainer.style.display = 'block';
+                    newTransactionButton.textContent = 'Cancelar';
+
+
+                } else {
+                    formContainer.style.display = 'none';
+                    newTransactionButton.textContent = 'Nova Transação';
+
+                    document.getElementById('descricao').value = '';
+                    document.getElementById('valor').value = '';
+                }
+            });
+            if (username && userId) {
+                sessionStorage.setItem('username', username);
+                sessionStorage.setItem('user_id', userId);
+            }
+        });
+
+    </script>
+
+
+</body>
+
+</html>
